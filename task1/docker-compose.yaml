@@ -1,0 +1,25 @@
+services:
+    nginx:
+        build:
+            context: ./nginx
+            dockerfile: Dockerfile
+        container_name: hw4nginx
+        ports:
+            - "80:80"
+        volumes:
+            - ./code:/data/mysite.local
+        networks:
+            - dev
+    php:
+        build:
+            context: ./fpm
+            dockerfile: Dockerfile
+        working_dir: /data/mysite.local
+        container_name: hw4app1
+        volumes:
+            - ./code:/data/mysite.local
+        networks:
+            - dev
+
+networks:
+  dev:
